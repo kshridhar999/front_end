@@ -3,20 +3,30 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 const Video = () => {
   let id = useParams();
-  console.log(id.id);
   const [vidInfo,setVidInfo]=useState([]);
   const [likedVidList,setLiked] =useState([]);
-  let userInfo=window.localStorage.getItem("userInfo")?JSON.parse(window.localStorage.getItem("userInfo")):null;
-  let isLiked=false;
-  // const isliked=()=>{
-  //   if(userInfo.liked_vid.length){
-  //     let likedArr=userInfo.liked_vid.split("|");
-  //     setLiked(likedArr)
-  //     console.log(likedArr)
-  // }}
-  // useEffect(()=>{
-  //   isliked()
-  // },[])
+  let userInfo = window.localStorage.getItem("userInfo")?JSON.parse(window.localStorage.getItem("userInfo")):[];
+  const [isLiked, setIsLiked]=useState(false);
+  
+  const isliked=()=>{
+    if(userInfo.liked_vid.length){
+      let likedArr=userInfo.liked_vid.split("|");
+      likedArr.pop();
+      console.log(likedArr)
+      setLiked(likedArr);
+      let vid_id = vidInfo.id.then((x)=>x.toString());
+      for(let i=0;i<likedArr.length; i++){
+        if(likedArr[i]==vid_id){
+          setIsLiked(true);
+          console.log("yex")
+          break;
+        }
+      }
+  }
+}
+  useEffect(()=>{
+    getVidInfo().then(()=>isliked());
+  },[]);
   // const addWatch=(id)=>{
   //   if(userInfo.watch_history.length){
   //     let watched=0;
@@ -38,27 +48,8 @@ const Video = () => {
   
   const getVidInfo=async()=>{
     let abc =await axios.get("https://sshtube-app.herokuapp.com/videos/"+id.id);
-    abc = await abc.data;
-    setVidInfo(abc);
+    setVidInfo(abc.data);
   }
-  useEffect(()=>{
-    getVidInfo()
-  },[]);
-//   const like= async (id)=>{
-//   let User = window.localstorage.getItem("user")?JSON.parse(window.localstorage.getItem("user")):[];
-//   setUser([User]);
-//   let liked_arr = user.liked_vid?user.liked_vid:""
-//   if(liked_arr.length){
-//     if(user.liked_vid.contains(id)){
-//       user.liked_vid.replace(id+"|","")
-//     }else{
-//       user.liked_vid+=id+"|"
-//     }
-//   }else{
-//     user.liked_vid = id + "|"
-//   }
-//   setUser([user]).then(window.localStorage.setItem("user",JSON.stringify([user])))
-//   }
 const like= (id)=>{
   // if(userInfo){
   //   if(userInfo.liked_vid.length){
@@ -124,10 +115,7 @@ const like= (id)=>{
           <h1>hello description</h1>
           <div className="video">
             <div>
-            <video width="300" height="250" controls>
-                <source src={vidInfo.url} type="video/mp4"></source>
-                <source src="/Users/cogoport/download_vids/a.ogg" type="video/ogg"></source>
-            </video>
+            <video width="300" height="250" src={vidInfo.url} controls />
             </div>
             <div>
               {isLiked?<button className="liked" onClick={()=>like(1234)}>Liked</button>:
@@ -136,6 +124,7 @@ const like= (id)=>{
               <button className="notliked" onClick={()=>save(1234)}>Save</button>}
               {isLiked?<button className="liked" onClick={()=>save(1234)}>Disliked</button>:
               <button className="notliked" onClick={()=>like(1234)}>Dislike</button>}
+              {isLiked?console.log(1):console.log("here")}
             </div>
           </div>
 
