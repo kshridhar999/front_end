@@ -14,7 +14,34 @@ body{
     border-bottom: 1px solid grey;
     box-shadow: 0px 0px 20px 1px grey;
 }
-
+.upload{
+    text-decoration: none;
+    color: black;
+    font-size: larger;
+    top:20px;
+}
+.circle {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(44,108,128);
+    position: absolute;
+    bottom: -85vh;
+    right: 2vw;
+    }
+.circle::before {
+      content: "+";
+      height:60px;
+      width:60px;
+      font-size:20px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+      font-family:courier;
+      color:white;
+    }
 .searchInp {
     margin: 10px;
     height: 4vh;

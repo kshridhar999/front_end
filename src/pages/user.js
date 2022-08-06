@@ -12,20 +12,17 @@ const User=()=>{
         window.localStorage.removeItem("userInfo");
         window.localStorage.setItem("isSigned",JSON.stringify(isSigned));
         navigate("/");
-        
     }
     return(
         <>
         <div className="navBar">
           {isSigned?
-          (<><Link to="/user"><img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user-perconal-symbol-vector-on-white-isolated-background-.jpg?ver=6" width="50" height="50" alt="img" className="leftOptions"></img></Link>
-          <Link to="/uploads" className="leftOptions">Uploads</Link> </> 
+          (<><Link to="/user"><img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user-perconal-symbol-vector-on-white-isolated-background-.jpg?ver=6" width="50" height="50" alt="img" className="leftOptions"></img><Link to="/" style={{"text-decoration":"None"}}>Home</Link></Link>
+          <div class="circle" onClick={()=>{window.open("http://127.0.0.1:5000/upload", '_blank');}}></div> </>
+           
           ):(<><Link to="/signin"><img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user-perconal-symbol-vector-on-white-isolated-background-.jpg?ver=6" width="20" height="20"alt="img" className="leftOptions"></img></Link>
           <Link to="/signin" className="leftOptions">Uploads</Link></>)
           }
-
-          
-
           <div>
             {isSigned?
             (<><Link to={"/watch_history"} className="rightOptions">History</Link>
@@ -35,15 +32,12 @@ const User=()=>{
             <Link to="/signin" className="rightOptions">Saved</Link>
             <Link to="/signin" className="rightOptions">Liked</Link></>)}
           </div> 
-      
         </div>
-    
         <div className="user">
             <h1 className="info">Username:{userInfo.username}</h1>
             <h1 className="info"> Password:{userInfo.password}</h1>
             <button onClick={signout}>Signout</button>
         </div>
-        
         </>
     )
 }

@@ -24,7 +24,7 @@ const App=()=>{
                 <Route path="/uploads" element={<Uploads/>}/>
                 <Route path="/signin" element={<Signin/>}/>
                 <Route path="/signup" element={<Signup/>}/>
-                <Route path="/video" element={<Video/>}/>
+                <Route path="/video/:id" element={<Video/>}/>
                 <Route path="/user" element={<User/>}/>
             </Routes>
         </BrowserRouter>

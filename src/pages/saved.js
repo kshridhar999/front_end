@@ -22,7 +22,7 @@ const Saved_vid = () => {
             <div className="navBar">
           <div className="searchInp">
           <Link to="/user"><img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user-perconal-symbol-vector-on-white-isolated-background-.jpg?ver=6" width="50" height="50" alt="img" className="leftOptions"></img></Link>
-            <Link to="/uploads" className="leftOptions">Uploads</Link>
+          <div class="circle" onClick={()=>{window.open("http://127.0.0.1:5000/upload", '_blank');}}></div>
           </div>
           
           <div className="searchInp">

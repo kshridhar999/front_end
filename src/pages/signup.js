@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 
 const Signup = () => {
-    const[username, setUsername] = useState("Name");
+    const[username, setUsername] = useState("");
     const[profile_picture, setProfilePicture] = useState([]);
-    const[Password, setPassword] = useState("Password");
-    const[confirmPassword, setConfirmPassword] = useState("Confirm Password");
+    const[Password, setPassword] = useState("");
+    const[confirmPassword, setConfirmPassword] = useState("");
     let navigate=useNavigate()
     const Signup = () => {
         if(Password!==confirmPassword){
@@ -26,11 +26,11 @@ const Signup = () => {
         <>
         <div  className="signing">
 
-        <input type="name" placeholder={username} className="signingInp" onChange={(e)=>{setUsername(e.target.value)}} required></input>
+        <input type="name" placeholder="username" value={username} className="signingInp" onChange={(e)=>{setUsername(e.target.value)}} required></input>
 
-        <input type="password" placeholder={Password} className="signingInp" onChange={(e)=>{setPassword(e.target.value)}} required></input>
+        <input type="password" placeholder="password" value={Password} className="signingInp" onChange={(e)=>{setPassword(e.target.value)}} required></input>
 
-        <input type="password" placeholder={confirmPassword} className="signingInp" onChange={(e)=>{setConfirmPassword(e.target.value)}} required></input>
+        <input type="password" placeholder="confirm password" value={confirmPassword} className="signingInp" onChange={(e)=>{setConfirmPassword(e.target.value)}} required></input>
 
         <button onClick={Signup} className="signButton">Sign up</button>
 
