@@ -5,8 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
-    const[username, setUsername] = useState("");
-    const[Password, setPassword] = useState("");
+    const[username, setUsername] = useState("Joker123");
+    const[Password, setPassword] = useState("Joker123");
     let isSigned = false;
     let navigate=useNavigate();
 
@@ -34,9 +34,9 @@ const Signin = () => {
         <>
         <div  className="signing">
 
-        <input type="name" placeholder="username" value={username} className="signingInp" onChange={(e)=>{setUsername(e.target.value)}} required></input>
+        <input type="name" placeholder="Username" value={username} className="signingInp" onChange={(e)=>{setUsername(e.target.value)}} required></input>
 
-        <input type="password" placeholder="password" value={Password} className="signingInp" onChange={(e)=>{setPassword(e.target.value)}} required></input>
+        <input type="password" placeholder="Password" value={Password} className="signingInp" onChange={(e)=>{setPassword(e.target.value)}} required></input>
 
         <button onClick={Signin} className="signButton">Sign in</button>
 

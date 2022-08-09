@@ -1,51 +1,62 @@
 import React, { useEffect, useState }  from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Watched_vid = () => {
-    const [watched,setWatched]=useState([])
-    let userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
-    // setUser({id:1,liked:"pqr|123|rts|",liked:"pqr|123|rts|",disliked:"pqr|123|rts|",saved:"pqr|123|rts|",history:"pqr|123|rts|"})
-    const showHist=()=>{
-      if(userInfo.watch_history.length){
-        let watchedArr= userInfo.Watched_vid.split("|");
-        let newArr=[]
-        for (let i = 0; i < watchedArr.length-1; i++) {
-          newArr.push(watchedArr[i])
-        }
-        setWatched(newArr)
-        console.log(watched)
-        }
-      }
-    useEffect(()=>{
-      showHist();
-    },[])
+  const [watchedVidInfo,setInfo]=useState([]);
+  let userInfo=window.localStorage.getItem("userInfo")?JSON.parse(window.localStorage.getItem("userInfo")):[];
+  const getWatched=async()=>{
+    if(userInfo.watch_history.length){
+      let watch_arr=userInfo.watch_history.split("|");
+      console.log(watch_arr);
+      watch_arr.pop();
+      console.log(watch_arr)
+      // console.log(watch_arr)
+      let watchVidList=[]
+      for (let i = 0; i < watch_arr.length; i++) {
+        console.log(watch_arr[i].toString())
+        let watchVid= await axios.get("https://sshtube-app.herokuapp.com/videos/" + watch_arr[i].toString());
+        watchVid=watchVid.data
+        watchVidList.push(watchVid)
+    } setInfo(watchVidList)}
+  }
+  useEffect(()=>{
+    getWatched()
+  },[])
     return (
         <>
         <div>
-            <div className="navBar">
-          <div className="searchInp">
-          <Link to="/user"><img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user-perconal-symbol-vector-on-white-isolated-background-.jpg?ver=6" width="50" height="50" alt="img" className="leftOptions"></img></Link>
+          <div className="navBar">
+          <Link to="/user"><img src={userInfo.profile_picture} width="50" height="50" alt="img" className="leftOptions profile"></img></Link>
           <div class="circle" onClick={()=>{window.open("http://127.0.0.1:5000/upload", '_blank');}}></div>
-          </div>
-          
-          <div className="searchInp">
-          <Link to="/" className="rightOptions">Home</Link>
+          <div>
+          <Link to="/" className="rightOptions"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+</svg></Link>
           <Link to="/saved" className="rightOptions">Saved</Link>
-          <Link to="/liked" className="rightOptions">Liked</Link>
-          </div> 
+          <Link to="/liked" className="rightOptions">Liked</Link> 
           </div>
-        </div>
-        <div className="vidList">
-          {watched.map(vid=>{
-            return(
+          </div>
+      </div>
+      <div className="vidList">
+      {watchedVidInfo.map((vid) => {
+          return (
+            <>
+            <Link to={"/video/"+vid.id}>
               <div className="vidCard">
-                <img src="" alt=""></img>
+              <img src={vid.description} className="thumb" alt="some vid"/>
+              <div className="bottomInfo">
+              <p className="title">{vid.title}</p>
+              <p>Likes:{vid.likeCount}</p>
               </div>
-            )
-          })}
-        </div>
+              </div>
+            </Link>
+            </>
+          )
+        })}
+      </div>
         </>
     )
 }
-
 export default Watched_vid;

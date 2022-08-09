@@ -11,6 +11,7 @@ import Uploads from "../src/pages/upload"
 import "./stylesheets/style.css"
 import Video from "./pages/video"
 import User from "./pages/user"
+import Results from "./pages/results"
 
 const App=()=>{
     return(
@@ -26,6 +27,7 @@ const App=()=>{
                 <Route path="/signup" element={<Signup/>}/>
                 <Route path="/video/:id" element={<Video/>}/>
                 <Route path="/user" element={<User/>}/>
+                <Route path="/results/:title" element={<Results/>}/>
             </Routes>
         </BrowserRouter>
         </>

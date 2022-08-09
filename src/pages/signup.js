@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import styles from "../stylesheets/signup-in.module.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Signup = () => {
@@ -12,16 +13,22 @@ const Signup = () => {
     const[confirmPassword, setConfirmPassword] = useState("");
     let navigate=useNavigate()
     const Signup = () => {
-        if(Password!==confirmPassword){
-            alert("Password is not confirmed");
-        }
-        else{
-            axios.post("http://sshtube-app.herokuapp.com/user", {"username":username, "password":Password, "profile_picture":"", "liked_vid":"", "watch_history":"", "save_vid":"", "upload_list":""})
-            // alert("SUCCESS!");
-            navigate("/signin");
+        if(username){
+            if(Password){
+                if(Password!==confirmPassword){
+                    Swal.fire("Password is not confirmed");
+                }else{
+                    axios.post("http://sshtube-app.herokuapp.com/user", {"username":username, "password":Password, "profile_picture":"", "liked_vid":"", "watch_history":"", "save_vid":"", "upload_list":""})
+                    Swal.fire("Sign up successful, redirecting to Sign in page.")
+                    navigate("/signin");
+                }
+            }else{
+                Swal.fire("Please create the password.")
+            }
+        }else{
+            Swal.fire("Username cant be empty.")
         }
     }
-
     return (
         <>
         <div  className="signing">
