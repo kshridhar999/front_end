@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sshTube/static/css/main.7c3f0c7a.css",
+    "main.js": "/sshTube/static/js/main.7e6d4fb6.js",
+    "index.html": "/sshTube/index.html",
+    "main.7c3f0c7a.css.map": "/sshTube/static/css/main.7c3f0c7a.css.map",
+    "main.7e6d4fb6.js.map": "/sshTube/static/js/main.7e6d4fb6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7c3f0c7a.css",
+    "static/js/main.7e6d4fb6.js"
+  ]
+}
